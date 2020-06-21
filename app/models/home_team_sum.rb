@@ -1,0 +1,2 @@
+class HomeTeamSum < ApplicationRecord
+end

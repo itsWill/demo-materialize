@@ -1,0 +1,35 @@
+name: demo-materialize
+
+type: rails
+
+up:
+  - homebrew:
+    - mysql-client@5.7:
+        or:        [mysql@5.7]
+        conflicts: [mysql-connector-c, mysql, mysql-client]
+    # - another_package
+  - ruby: 2.6.3
+  - python: 3.7.2
+  - node:
+      version: v10.18.0
+      yarn: 1.12.3
+  - bundler
+
+server:
+  port: 42160
+
+commands:
+  console: bin/rails console
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    run:    bin/rails test
+
+# These use fuzzy-matching, so you can (e.g.) `dev open app`
+open:
+  "My Application": https://demo-materialize.myshopify.io
+  #ops:
+    # - https://datadog.link
+    # - https://bugsnag.link
+    # - https://kafka.link

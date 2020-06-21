@@ -1,0 +1,31 @@
+<%= link_to "Stop Generating", demo_stop_path, method: :post %>
+
+<h1>Teams by Total Home Game Score</h1>
+<% @home_team_sums.sort_by(&:total).reverse.each do |home_team_sum| %>
+  <p id='team<%=home_team_sum.attributes["id"] %>'> Name: <%= home_team_sum.attributes["id"] %> - Total: <%= home_team_sum.total %> </p>
+<%end %>
+
+<!-- reload the page every second -->
+  <script>
+    async function getData() {
+      let response = await fetch("index", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+      })
+      return  await response.json()
+    }
+
+    setInterval(async function() {
+      let teamSums = await getData()
+      for (const teamSum of teamSums){
+        let id = teamSum["id"]
+        let total = teamSum["total"]
+        let eleId = "team"+id
+        document.getElementById(eleId).innerHTML = "Name: " + id + " - Total: " + total
+        console.log("updated")
+      }
+    }, 250)
+  </script>
